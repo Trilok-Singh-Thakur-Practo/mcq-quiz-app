@@ -23,7 +23,12 @@ public class QuestionController {
 
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Question>> getQuestionsBYCategory(@PathVariable String category){
-        return questionService.getQuestionsBYCategory(category);
+        return questionService.getQuestionsByCategory(category);
+    }
+
+    @GetMapping("/difficultyLevel/{difficultyLevel}")
+    public ResponseEntity<List<Question>> getQuestionBYCategory(@PathVariable String difficultyLevel){
+        return questionService.getQuestionsByDifficultyLevel(difficultyLevel);
     }
 
     @PostMapping("/addNewQuestion")

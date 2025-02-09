@@ -1,10 +1,9 @@
 package com.exam_app.exam_app.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data  // NO need for getter and setter
 @Entity
@@ -21,4 +20,7 @@ public class Question {
     private String correctOption;
     private String difficultyLevel;
     private String category;
+
+//    @ManyToMany(mappedBy = "questions")  // mapping to reference Quiz
+//    private List<Quiz> quizzes;
 }
