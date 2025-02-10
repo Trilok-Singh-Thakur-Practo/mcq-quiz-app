@@ -36,9 +36,9 @@ const CreateQuiz = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const quizData = { quizName, noOfQuestions, startTime, endTime, questions };
+        const quiz = { quizName, noOfQuestions, startTime, endTime, questions };
         try {
-            const response = await axios.post('http://localhost:8080/quizzes/createQuiz', quizData);
+            const response = await axios.post('http://localhost:8080/quizzes/createQuiz', quiz, {headers: { "Content-Type": "application/json" }});
             alert(response.data);
 
             navigate('/quizzes/invite-users');
@@ -52,16 +52,16 @@ const CreateQuiz = () => {
         <div>
             {step === 1 && (
                 <form onSubmit={handleQuizSetup}>
-                    <label>Quiz Name:</label>
+                    <label>Quiz Name : </label>
                     <input type="text" value={quizName} onChange={(e) => setQuizName(e.target.value)} required />
                     <br />
-                    <label>Number of Questions:</label>
+                    <label>Number of Questions : </label>
                     <input type="number" value={noOfQuestions} onChange={(e) => setNoOfQuestions(e.target.value)} required />
                     <br />
-                    <label>Start Time:</label>
+                    <label>Start Time : </label>
                     <input type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
                     <br />
-                    <label>End Time:</label>
+                    <label>End Time : </label>
                     <input type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
                     <br />
                     <button type="submit">Next</button>

@@ -22,16 +22,6 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
-    @GetMapping("/category/{category}")
-    public ResponseEntity<List<Question>> getQuestionsBYCategory(@PathVariable String category){
-        return questionService.getQuestionsByCategory(category);
-    }
-
-    @GetMapping("/difficultyLevel/{difficultyLevel}")
-    public ResponseEntity<List<Question>> getQuestionBYCategory(@PathVariable String difficultyLevel){
-        return questionService.getQuestionsByDifficultyLevel(difficultyLevel);
-    }
-
     @PostMapping("/addNewQuestion")
     public ResponseEntity<String> addQuestion(Question question){
         return questionService.addQuestion(question);

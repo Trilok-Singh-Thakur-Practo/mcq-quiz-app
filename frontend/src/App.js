@@ -11,6 +11,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path='/' element = {<LoginPage/>} />
         <Route path='/login' element = {<LoginPage/>} />
         <Route path='/quizzes' element={<QuizPage/>}/>
         <Route path='/quizzes/create-quiz' element={<CreateQuizPage/>}/>
