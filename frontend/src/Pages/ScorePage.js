@@ -29,6 +29,7 @@ const ScorePage = () => {
         <div>
             <h2>Quiz Completed!</h2>
             <h3>Your Score: {score}</h3>
+            
             <button onClick={() => navigate("/quizzes")}>Go to Home</button>
         </div>
     );

@@ -45,7 +45,7 @@ public class ResultService {
         }
 
 
-        List<Question> questions = quiz.getQuestions(); // Get all questions in the quiz
+        List<Question> questions = quiz.getQuestions();  // Get all questions in the quiz
         int score = 0;
 
         for (Question question : questions) {
