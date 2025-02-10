@@ -15,7 +15,7 @@ const LoginPage = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/login', user);
-            alert(response.data);  // Show response message (SUCCESS or FAILURE)
+            alert(response.data);  
 
             navigate('/quizzes');
         } catch (error) {

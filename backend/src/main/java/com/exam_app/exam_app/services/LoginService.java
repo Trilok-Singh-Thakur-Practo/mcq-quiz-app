@@ -20,7 +20,7 @@ public class LoginService {
             Optional<User> existingUser = userRepo.findByNameAndEmail(user.getName(), user.getEmail());
 
             if (existingUser.isPresent()) {
-                return new ResponseEntity<>("User already exists. Login successful!", HttpStatus.OK);
+                return new ResponseEntity<>("Login successful!", HttpStatus.OK);
             }
 
             // Save new user if not found
