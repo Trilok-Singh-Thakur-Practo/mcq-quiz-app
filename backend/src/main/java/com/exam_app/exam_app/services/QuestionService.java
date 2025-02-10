@@ -16,17 +16,6 @@ public class QuestionService {
     @Autowired
     QuestionRepo questionRepo;
 
-    public ResponseEntity<List<Question>> getQuestionsByCategory(String category) {
-        try {
-            return new ResponseEntity<>(questionRepo.findByCategory(category), HttpStatus.OK);
-        }
-        catch (Exception exception){
-            exception.printStackTrace();
-        }
-
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
-    }
-
     public ResponseEntity<List<Question>> getAllQuestions() {
         try {
             return new ResponseEntity<>(questionRepo.findAll(), HttpStatus.OK);
@@ -48,13 +37,4 @@ public class QuestionService {
         return new ResponseEntity<>("FAILURE", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public ResponseEntity<List<Question>> getQuestionsByDifficultyLevel(String difficultyLevel) {
-        try {
-            return new ResponseEntity<>(questionRepo.findByDifficultyLevel(difficultyLevel), HttpStatus.OK);
-        }
-        catch (Exception exception){
-            exception.printStackTrace();
-        }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
-    }
 }

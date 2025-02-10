@@ -14,7 +14,7 @@ public class Response {
     @ManyToOne
     private Question question;
 
-    private String userOption; //option selected by user
+    private String userOption;
 
     @ManyToOne
     private User user;

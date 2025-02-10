@@ -8,7 +8,4 @@ import java.util.List;
 
 @Repository
 public interface QuestionRepo extends JpaRepository<Question, Integer> {
-
-    List<Question> findByCategory(String Category);
-    List<Question> findByDifficultyLevel(String difficultyLevel);
 }

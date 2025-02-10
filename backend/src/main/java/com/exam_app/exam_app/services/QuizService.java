@@ -25,8 +25,8 @@ public class QuizService {
         }
         catch (Exception exception){
             exception.printStackTrace();
+            return new ResponseEntity<>("FAILURE", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("FAILURE", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<Quiz> showQuizById(Integer quizId) {

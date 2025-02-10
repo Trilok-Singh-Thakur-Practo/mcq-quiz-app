@@ -1,71 +1,61 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LandingPage = () => {
-    const [name, setName] = useState("");
+const UserLogin = () => {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
-    
+
     // Extract query parameters from URL
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
     const startTime = urlParams.get("startTime");
     const endTime = urlParams.get("endTime");
 
+    // Redirect if required parameters are missing
     useEffect(() => {
         if (!token || !startTime || !endTime) {
             alert("Invalid or missing quiz link!");
-            navigate("/login");  // Redirect to home if the link is incorrect
+            navigate("/login");
         }
     }, [navigate, token, startTime, endTime]);
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        const user = { name, email };
 
         try {
-            // Send registration request
-            const user = { name, email};
-            const response = await axios.post("http://localhost:8080/quizzes/user-login", user, {
-                headers: { "Content-Type": "application/json" } // Ensure JSON format
+            const response = await axios.post(`http://localhost:8080/quizzes/user-login?token=${token}`, user, {
+                headers: { "Content-Type": "application/json" }
             });
 
             //console.log(response);
-
-            const userId  = response.data;
-            //console.log(userId);
-            //console.log("Type of userId:", typeof userId);
-
-            // Save user details in localStorage
-            localStorage.setItem("userId", userId);
-            localStorage.setItem("userName", name);
-            localStorage.setItem("userEmail", email);
-            
-
-            // Redirect to take-quiz with userId, token, startTime, and endTime in the URL
+            const userId = response.data;
             navigate(`/quizzes/take-quiz?userId=${userId}&token=${token}&startTime=${startTime}&endTime=${endTime}`);
+            //console.log(`userId=${userId}&token=${token}&startTime=${startTime}&endTime=${endTime}`);
         } catch (error) {
-            console.error("Error registering user:", error);
-            alert("Failed to register. Try again.");
+            setError(error.response?.data || "Access denied");
         }
     };
 
     return (
         <div>
-            <h2>Enter Your Details to Start the Quiz</h2>
-            <form onSubmit={handleSubmit}>
-                <label>Name : </label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-                <br /> <br />
+            <h2>Enter your details to start the quiz</h2>
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
-                <label>Email : </label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <br /> <br />
+            <label htmlFor="name">Enter Name:</label>
+            <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+            <br /><br />
 
-                <button type="submit">Register & Start Quiz</button>
-            </form>
+            <label htmlFor="email">Enter Email:</label>
+            <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <br /><br />
+
+            <button onClick={handleLogin}>Start Quiz</button>
         </div>
     );
 };
 
-export default LandingPage;
+export default UserLogin;

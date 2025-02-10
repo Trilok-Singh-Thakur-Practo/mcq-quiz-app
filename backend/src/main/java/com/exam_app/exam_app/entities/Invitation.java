@@ -1,10 +1,8 @@
 package com.exam_app.exam_app.entities;
 
-import com.exam_app.exam_app.repositories.InvitationRepo;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,22 +10,19 @@ import java.util.UUID;
 public class Invitation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer InvitationId;
+    private Integer invitationId;
 
-    @Column(nullable = false)
-    private String email; // Email of the invited user
+    @ElementCollection
+    private List<String> invitedEmails; // Store selected users' emails
 
-    private String token; // Unique token for the invitation
+    private String token; // Unique quiz invitation token
+
     @PrePersist
     public void generateToken() {
-        this.token = UUID.randomUUID().toString();  // Generates unique token
+        this.token = UUID.randomUUID().toString(); // Generates a unique token
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 }
